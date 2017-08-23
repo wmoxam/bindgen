@@ -2,11 +2,9 @@ CLANG_LIBS := -lclangFrontend -lclangSerialization -lclangDriver -lclangTooling 
 LLVM_LIBS := -lLLVMX86AsmParser -lLLVMX86Desc -lLLVMX86AsmPrinter -lLLVMX86Info -lLLVMX86Utils -lLLVMipo -lLLVMScalarOpts -lLLVMInstCombine -lLLVMTransformUtils -lLLVMAnalysis -lLLVMTarget -lLLVMOption -lLLVMMCParser -lLLVMMC -lLLVMObject -lLLVMBitReader  -lLLVMCore -lLLVMProfileData -lLLVMSupport -lLLVMDemangle
 LIBS := $(CLANG_LIBS) $(LLVM_LIBS) -pthread -lz -lcurses
 
-UNAME_S := $(shell uname -s)
+UNAME_S != uname -s
 
-ifneq ($(UNAME_S),OpenBSD)
-	LIBS += -ldl
-endif
+include $(UNAME_S).mk
 
 DEFINES := -D__STDC_LIMIT_MACROS -D__STDC_CONSTANT_MACROS
 
